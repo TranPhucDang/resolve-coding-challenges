@@ -153,10 +153,7 @@ Here is the content of `client.html` for testing:
 ## Challenge Requirements
 ### Part 1: System Design
 1. **System Design Document:**
-   - **Architecture Diagram:** Create an architecture diagram illustrating how different components of the system interact. This should include all components required for the feature, including the server, client applications, database, and any external services.
-   - **Component Description:** Describe each component's role in the system.
-   - **Data Flow:** Explain how data flows through the system from when a user joins a quiz to when the leaderboard is updated.
-   - **Technologies and Tools:** List and justify the technologies and tools chosen for each component and why they were selected.
+   [System Architecture](#system-architecture)
 
 ### Part 2: Implementation
 2. **Pick a Component:** Real-Time Score Updates
