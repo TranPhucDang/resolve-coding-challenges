@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-Time Quiz</title>
+</head>
+<body>
+    <h1>Real-Time Quiz</h1>
+    <button id="join">Join Quiz</button>
+    <ul id="leaderboard"></ul>
+    <script>
+        let socket;
+        const user_id = `user${Math.floor(Math.random() * 1000)}`;  // Unique user_id for each instance
+
+        document.getElementById('join').onclick = async function() {
+            const response = await fetch('http://localhost:8000/join-quiz/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ quiz_id: '44444' })
+            });
+            const result = await response.json();
+            console.log(result);
+
+            socket = new WebSocket(`ws://localhost:8000/ws/quiz123?user_id=${user_id}`);
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                if (data.type === "leaderboard_update") {
+                    const leaderboard = document.getElementById('leaderboard');
+                    leaderboard.innerHTML = "";
+                    data.data.forEach(user => {
+                        const li = document.createElement('li');
+                        li.textContent = `Rank ${user.rank}: ${user.user_id} - Score: ${user.score}`;
+                        leaderboard.appendChild(li);
+                    });
+                }
+            };
+
+            // Simulate sending score updates
+            setInterval(() => {
+                socket.send(JSON.stringify({ type: 'score_update', user_id: user_id, score: Math.floor(Math.random() * 100) }));
+            }, 5000);
+        };
+    </script>
+</body>
+</html>
