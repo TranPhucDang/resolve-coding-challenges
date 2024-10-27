@@ -87,7 +87,11 @@ The architecture consists of the following components:
     ./docker_stop.sh
     ```
 
-6. **Access the application:**
+6. **Run the FastAPI Server:**
+   ```bash
+    uvicorn main:app --reload
+    ```
+7. **Access the application:**
    Open your browser and navigate to `http://localhost:8000`.
 
 ## Usage
